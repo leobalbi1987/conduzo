@@ -11,6 +11,10 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+Route::get('/site', function () {
+    return view('site');
+})->name('site');
+
 Route::get('/dashboard', function () {
     return redirect()->route('admin.features.index');
 })->middleware(['auth', 'verified'])->name('dashboard');

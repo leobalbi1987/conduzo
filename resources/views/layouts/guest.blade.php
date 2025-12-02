@@ -18,8 +18,12 @@
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
             <div>
                 <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                    <x-brand-logo class="w-20 h-20" />
                 </a>
+                <div class="mt-2 text-center">
+                    <div class="text-2xl font-extrabold tracking-wide text-gray-800">CONDUZO</div>
+                    <div class="text-sm text-gray-500">Equipamentos de Telecomunicações</div>
+                </div>
             </div>
 
             <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
