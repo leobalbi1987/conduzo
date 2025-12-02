@@ -2,37 +2,70 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Feature;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class FeatureController extends Controller
 {
+    public function index(): View
+    {
+        $features = Feature::query()->orderBy('position')->get();
+
+        return view('admin.features.index', compact('features'));
+    }
+
     public function store(Request $request): RedirectResponse
     {
         $label = trim((string) $request->input('label', ''));
-        $href = trim((string) $request->input('href', '#'));
+        $href = trim((string) $request->input('href', ''));
+        $visible = (bool) $request->boolean('visible', true);
+        $position = (int) $request->input('position', 0);
+        $group = trim((string) $request->input('group', 'Personalizados'));
+        $parentId = $request->input('parent_id');
 
         if ($label === '') {
-            return redirect()->route('home')->with('error', 'Informe um nome para a funcionalidade.');
+            return back()->with('error', 'Informe um nome para a funcionalidade.');
         }
 
-        $features = (array) $request->session()->get('custom_features', []);
-        $features[] = ['label' => $label, 'href' => $href];
-        $request->session()->put('custom_features', $features);
+        Feature::query()->create([
+            'label' => $label,
+            'href' => $href ?: null,
+            'visible' => $visible,
+            'position' => $position,
+            'group' => $group ?: 'Personalizados',
+            'parent_id' => $parentId ? (int) $parentId : null,
+        ]);
 
-        return redirect()->route('home')->with('status', 'Funcionalidade adicionada.');
+        return back()->with('status', 'Funcionalidade adicionada.');
     }
 
-    public function destroy(Request $request, int $index): RedirectResponse
+    public function update(Request $request, Feature $feature): RedirectResponse
     {
-        $features = (array) $request->session()->get('custom_features', []);
-        if (array_key_exists($index, $features)) {
-            unset($features[$index]);
-            $request->session()->put('custom_features', array_values($features));
+        $label = trim((string) $request->input('label', $feature->label));
+        $href = trim((string) $request->input('href', (string) $feature->href));
+        $visible = (bool) $request->boolean('visible', $feature->visible);
+        $position = (int) $request->input('position', (int) $feature->position);
+        $group = trim((string) $request->input('group', (string) $feature->group));
+        $parentId = $request->input('parent_id', $feature->parent_id);
 
-            return redirect()->route('home')->with('status', 'Funcionalidade removida.');
-        }
+        $feature->update([
+            'label' => $label,
+            'href' => $href ?: null,
+            'visible' => $visible,
+            'position' => $position,
+            'group' => $group ?: 'Personalizados',
+            'parent_id' => $parentId ? (int) $parentId : null,
+        ]);
 
-        return redirect()->route('home')->with('error', 'Item não encontrado.');
+        return back()->with('status', 'Funcionalidade atualizada.');
+    }
+
+    public function destroy(Feature $feature): RedirectResponse
+    {
+        $feature->delete();
+
+        return back()->with('status', 'Funcionalidade removida.');
     }
 }

@@ -9,7 +9,7 @@ class HomeController extends Controller
 {
     public function index(Request $request): View
     {
-        $custom = (array) $request->session()->get('custom_features', []);
+        $features = \App\Models\Feature::query()->where('visible', true)->orderBy('position')->get();
 
         $menus = [
             [
@@ -66,11 +66,15 @@ class HomeController extends Controller
                     ['label' => 'Contato', 'href' => '#'],
                 ],
             ],
-            [
-                'label' => 'Personalizados',
-                'items' => array_map(fn ($f) => ['label' => $f['label'], 'href' => $f['href'] ?? '#'], $custom),
-            ],
         ];
+
+        $groups = $features->groupBy(fn ($f) => $f->group ?: 'Personalizados');
+        foreach ($groups as $gLabel => $groupItems) {
+            $menus[] = [
+                'label' => $gLabel,
+                'items' => $groupItems->map(fn ($f) => ['label' => $f->label, 'href' => $f->href ?: '#'])->all(),
+            ];
+        }
 
         $metrics = [
             ['label' => 'NR-10', 'sub' => 'Equipamentos NR-10', 'value' => 0, 'color' => '#8dd3ff', 'icon' => '⚡'],
@@ -111,6 +115,6 @@ class HomeController extends Controller
             ['label' => 'Gautica Ajuda', 'desc' => 'Manuais GNR10, GNR12, GNR13, GNR33, inspeções, modelos.', 'href' => '#'],
         ];
 
-        return view('home', compact('menus', 'metrics', 'credits', 'videos', 'news', 'links', 'custom'));
+        return view('home', compact('menus', 'metrics', 'credits', 'videos', 'news', 'links'));
     }
 }
