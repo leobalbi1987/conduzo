@@ -70,9 +70,22 @@ class HomeController extends Controller
 
         $groups = $features->groupBy(fn ($f) => $f->group ?: 'Personalizados');
         foreach ($groups as $gLabel => $groupItems) {
+            $parents = $groupItems->filter(fn ($f) => $f->parent_id === null)->values();
+            $items = $parents->map(function ($p) use ($groupItems) {
+                $children = $groupItems->filter(fn ($c) => $c->parent_id === $p->id)->values();
+                return [
+                    'label' => $p->label,
+                    'href' => $p->href ?: '#',
+                    'children' => $children->map(fn ($c) => [
+                        'label' => $c->label,
+                        'href' => $c->href ?: '#',
+                    ])->all(),
+                ];
+            })->all();
+
             $menus[] = [
                 'label' => $gLabel,
-                'items' => $groupItems->map(fn ($f) => ['label' => $f->label, 'href' => $f->href ?: '#'])->all(),
+                'items' => $items,
             ];
         }
 

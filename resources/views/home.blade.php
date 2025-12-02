@@ -123,6 +123,17 @@
     .menu-items a:last-child {
         border-bottom: none
     }
+    .menu-sub .parent {
+        display: block;
+        padding: 10px 12px;
+        color: var(--text);
+        text-decoration: none;
+        border-bottom: 1px solid #243763
+    }
+    .menu-sub .children {
+        border-top: 1px solid var(--border);
+        display: none
+    }
 
     .content {
         padding: 20px
@@ -264,7 +275,18 @@
                 <div class="menu-header" data-target="items-{{ $idx }}">{{ $m['label'] }}<span>▾</span></div>
                 <div id="items-{{ $idx }}" class="menu-items">
                     @foreach($m['items'] as $it)
-                    <a href="{{ $it['href'] }}">{{ $it['label'] }}</a>
+                        @if(isset($it['children']) && count($it['children']) > 0)
+                            <div class="menu-sub">
+                                <a href="{{ $it['href'] }}" class="parent" data-sub="sub-{{ $idx }}-{{ str_replace(' ', '-', strtolower($it['label'])) }}">{{ $it['label'] }} ▾</a>
+                                <div id="sub-{{ $idx }}-{{ str_replace(' ', '-', strtolower($it['label'])) }}" class="children">
+                                    @foreach($it['children'] as $ch)
+                                        <a href="{{ $ch['href'] }}">{{ $ch['label'] }}</a>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @else
+                            <a href="{{ $it['href'] }}">{{ $it['label'] }}</a>
+                        @endif
                     @endforeach
                 </div>
             </div>
@@ -387,6 +409,15 @@
     document.querySelectorAll('.menu-header').forEach(function(h) {
         h.addEventListener('click', function() {
             var id = h.getAttribute('data-target');
+            var el = document.getElementById(id);
+            var shown = el.style.display === 'block';
+            el.style.display = shown ? 'none' : 'block';
+        });
+    });
+    document.querySelectorAll('.menu-sub .parent').forEach(function(p){
+        p.addEventListener('click', function(e){
+            e.preventDefault();
+            var id = p.getAttribute('data-sub');
             var el = document.getElementById(id);
             var shown = el.style.display === 'block';
             el.style.display = shown ? 'none' : 'block';
