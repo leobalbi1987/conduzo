@@ -13,14 +13,21 @@ class AdminUserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::query()->updateOrCreate(
-            ['email' => env('ADMIN_SEED_EMAIL', 'admin@example.com')],
+        $user = User::query()->updateOrCreate(
+            ['email' => env('ADMIN_SEED_EMAIL', 'leonardocbalbi@gmail.com')],
             [
                 'name' => env('ADMIN_SEED_NAME', 'Administrador'),
-                'password' => Hash::make(env('ADMIN_SEED_PASSWORD', 'password')),
+                'password' => Hash::make(env('ADMIN_SEED_PASSWORD', '********')),
                 'email_verified_at' => now(),
                 'is_admin' => true,
             ]
         );
+
+        // Atribui o papel super-admin se o método assignRole existir
+        if (method_exists($user, 'assignRole')) {
+            $user->assignRole('super-admin');
+        } else {
+            \Log::info("Método assignRole não encontrado no modelo User.");
+        }
     }
 }
