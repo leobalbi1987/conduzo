@@ -16,14 +16,15 @@
         header .brand .dot{ width:10px; height:10px; border-radius:50%; background:var(--accent) }
         header nav a{ color:var(--muted); text-decoration:none; margin-left:16px; font-weight:600 }
         main{ max-width:1000px; margin:40px auto; padding:0 24px }
-        .hero{ background:linear-gradient(135deg, rgba(91,192,190,.18), transparent); border:1px solid #2a3558; border-radius:16px; padding:32px; display:grid; grid-template-columns:1.1fr .9fr; gap:24px }
+        .hero{ background:linear-gradient(135deg, rgba(91,192,190,.22), #121a33); border:1px solid #2a3558; border-radius:16px; padding:32px; display:grid; grid-template-columns:1.1fr .9fr; gap:24px }
         .hero h1{ margin:0 0 8px; font-size:28px }
         .hero p{ margin:0 0 20px; color:var(--muted) }
         .hero .actions{ display:flex; gap:12px }
         .btn{ display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:10px; border:1px solid #2a3558; background:#182039; color:var(--text); text-decoration:none; font-weight:600 }
+        .btn:focus{ outline:none; box-shadow:0 0 0 2px #5bc0be55 }
         .btn.primary{ background:var(--accent); color:#0b132b; border-color:transparent }
         .stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:24px }
-        .card{ background:var(--card); border:1px solid #2a3558; border-radius:12px; padding:16px }
+        .card{ background:linear-gradient(180deg, #1b2442, #172039); border:1px solid #2a3558; border-radius:12px; padding:16px }
         .label{ font-size:12px; color:var(--muted) }
         .value{ font-size:22px; font-weight:700 }
         footer{ text-align:center; padding:20px; color:var(--muted) }

@@ -277,15 +277,15 @@
                     @foreach($m['items'] as $it)
                         @if(isset($it['children']) && count($it['children']) > 0)
                             <div class="menu-sub">
-                                <a href="{{ $it['href'] }}" class="parent" data-sub="sub-{{ $idx }}-{{ str_replace(' ', '-', strtolower($it['label'])) }}">{{ $it['label'] }} ▾</a>
+                                <a href="{{ $it['href'] }}" class="parent" data-sub="sub-{{ $idx }}-{{ str_replace(' ', '-', strtolower($it['label'])) }}">{{ $it['icon'] ?? '' }} {{ $it['label'] }} ▾</a>
                                 <div id="sub-{{ $idx }}-{{ str_replace(' ', '-', strtolower($it['label'])) }}" class="children">
                                     @foreach($it['children'] as $ch)
-                                        <a href="{{ $ch['href'] }}">{{ $ch['label'] }}</a>
+                                        <a href="{{ $ch['href'] }}">{{ $ch['icon'] ?? '' }} {{ $ch['label'] }}</a>
                                     @endforeach
                                 </div>
                             </div>
                         @else
-                            <a href="{{ $it['href'] }}">{{ $it['label'] }}</a>
+                            <a href="{{ $it['href'] }}">{{ $it['icon'] ?? '' }} {{ $it['label'] }}</a>
                         @endif
                     @endforeach
                 </div>

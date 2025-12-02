@@ -73,12 +73,15 @@ class HomeController extends Controller
             $parents = $groupItems->filter(fn ($f) => $f->parent_id === null)->values();
             $items = $parents->map(function ($p) use ($groupItems) {
                 $children = $groupItems->filter(fn ($c) => $c->parent_id === $p->id)->values();
+
                 return [
                     'label' => $p->label,
                     'href' => $p->href ?: '#',
+                    'icon' => $p->icon,
                     'children' => $children->map(fn ($c) => [
                         'label' => $c->label,
                         'href' => $c->href ?: '#',
+                        'icon' => $c->icon,
                     ])->all(),
                 ];
             })->all();

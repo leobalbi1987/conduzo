@@ -23,6 +23,7 @@ class FeatureController extends Controller
         $visible = (bool) $request->boolean('visible', true);
         $position = (int) $request->input('position', 0);
         $group = trim((string) $request->input('group', 'Personalizados'));
+        $icon = trim((string) $request->input('icon', ''));
         $parentId = $request->input('parent_id');
 
         if ($label === '') {
@@ -35,6 +36,7 @@ class FeatureController extends Controller
             'visible' => $visible,
             'position' => $position,
             'group' => $group ?: 'Personalizados',
+            'icon' => $icon ?: null,
             'parent_id' => $parentId ? (int) $parentId : null,
         ]);
 
@@ -48,6 +50,7 @@ class FeatureController extends Controller
         $visible = (bool) $request->boolean('visible', $feature->visible);
         $position = (int) $request->input('position', (int) $feature->position);
         $group = trim((string) $request->input('group', (string) $feature->group));
+        $icon = trim((string) $request->input('icon', (string) $feature->icon));
         $parentId = $request->input('parent_id', $feature->parent_id);
 
         $feature->update([
@@ -56,6 +59,7 @@ class FeatureController extends Controller
             'visible' => $visible,
             'position' => $position,
             'group' => $group ?: 'Personalizados',
+            'icon' => $icon ?: null,
             'parent_id' => $parentId ? (int) $parentId : null,
         ]);
 

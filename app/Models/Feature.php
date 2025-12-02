@@ -16,6 +16,7 @@ class Feature extends Model
         'visible',
         'group',
         'parent_id',
+        'icon',
     ];
 
     protected $casts = [

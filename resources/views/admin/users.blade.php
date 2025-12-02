@@ -19,10 +19,15 @@
         .card{ background:var(--card); border:1px solid #2a3558; border-radius:12px; padding:16px }
         table{ width:100%; border-collapse:collapse }
         th, td{ padding:12px; border-bottom:1px solid #2a3558; text-align:left }
-        th{ color:var(--muted); font-weight:600 }
+        thead tr{ position:sticky; top:0; background:#16223f; z-index:2 }
+        th{ color:#eaf1f8; font-weight:600 }
+        tbody tr:nth-child(odd){ background:#111a33 }
+        tbody tr:nth-child(even){ background:#0d152b }
+        tbody tr:hover{ background:#182039 }
         .badge{ display:inline-block; padding:4px 8px; border-radius:999px; font-size:12px; background:#182039; border:1px solid #2a3558 }
         .badge.admin{ background:var(--accent); color:#0b132b; border-color:transparent }
         .btn{ display:inline-flex; padding:8px 10px; border-radius:8px; background:#182039; border:1px solid #2a3558; color:var(--text); font-weight:600; cursor:pointer }
+        .btn:focus{ outline:none; box-shadow:0 0 0 2px #5bc0be55 }
         .btn:hover{ filter:brightness(1.1) }
         .alert{ margin-bottom:16px; padding:12px; border-radius:10px }
         .alert.ok{ background:rgba(91,192,190,.15); border:1px solid #2a3558 }
@@ -41,7 +46,7 @@
     <h1 style="margin:0 0 16px">Usuários</h1>
 
     <form method="GET" action="{{ route('admin.users.index') }}" style="margin-bottom:16px; display:flex; gap:8px">
-        <input type="text" name="q" value="{{ $q ?? '' }}" placeholder="Buscar por nome ou e‑mail" style="flex:1; padding:10px; border-radius:8px; border:1px solid #2a3558; background:#182039; color:var(--text)">
+        <input type="text" name="q" value="{{ $q ?? '' }}" placeholder="Buscar por nome ou e‑mail" style="flex:1; padding:10px; border-radius:8px; border:1px solid #3a4b77; background:#192341; color:var(--text)">
         <button class="btn" type="submit">Buscar</button>
     </form>
 
@@ -52,7 +57,7 @@
         <div class="alert err">{{ session('error') }}</div>
     @endif
 
-    <div class="card">
+    <div class="card" style="max-height:60vh; overflow:auto">
         <table>
             <thead>
                 <tr>
