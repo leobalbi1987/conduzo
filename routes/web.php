@@ -26,6 +26,7 @@ Route::post('/home/features/{index}/delete', [FeatureController::class, 'destroy
 Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::get('/administracao/home', [AdminController::class, 'home'])->name('admin.home');
     Route::get('/administracao/usuarios', [AdminUsersController::class, 'index'])->name('admin.users.index');
+    Route::post('/administracao/usuarios', [AdminUsersController::class, 'store'])->name('admin.users.store');
     Route::post('/administracao/usuarios/{user}/toggle-admin', [AdminUsersController::class, 'toggleAdmin'])->name('admin.users.toggle');
     Route::get('/administracao/funcionalidades', [FeatureController::class, 'index'])->name('admin.features.index');
     Route::post('/administracao/funcionalidades', [FeatureController::class, 'store'])->name('admin.features.store');

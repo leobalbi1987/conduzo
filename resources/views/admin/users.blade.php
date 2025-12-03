@@ -45,6 +45,37 @@
 <main>
     <h1 style="margin:0 0 16px">Usuários</h1>
 
+    <div class="card" style="margin-bottom:16px">
+        <h2 style="margin:0 0 12px; font-size:18px">Criar novo usuário</h2>
+        <form method="POST" action="{{ route('admin.users.store') }}" style="display:grid; grid-template-columns:repeat(4,1fr); gap:8px; align-items:end">
+            @csrf
+            <div>
+                <div style="font-size:12px; color:var(--muted)">Nome</div>
+                <input type="text" name="name" required placeholder="Nome completo" style="width:100%; padding:10px; border-radius:8px; border:1px solid #3a4b77; background:#192341; color:var(--text)">
+            </div>
+            <div>
+                <div style="font-size:12px; color:var(--muted)">E‑mail</div>
+                <input type="email" name="email" required placeholder="email@exemplo.com" style="width:100%; padding:10px; border-radius:8px; border:1px solid #3a4b77; background:#192341; color:var(--text)">
+            </div>
+            <div>
+                <div style="font-size:12px; color:var(--muted)">Senha</div>
+                <input type="password" name="password" required placeholder="Mín. 8 caracteres" style="width:100%; padding:10px; border-radius:8px; border:1px solid #3a4b77; background:#192341; color:var(--text)">
+            </div>
+            <div style="display:flex; gap:12px; align-items:center">
+                <label style="display:inline-flex; align-items:center; gap:6px"><input type="checkbox" name="is_admin"> <span>Admin</span></label>
+                <label style="display:inline-flex; align-items:center; gap:6px"><input type="checkbox" name="verified" checked> <span>Verificar e‑mail</span></label>
+                <button class="btn" type="submit">Criar usuário</button>
+            </div>
+        </form>
+        @if ($errors->any())
+            <div class="alert err" style="margin-top:12px">
+                @foreach ($errors->all() as $e)
+                    <div>{{ $e }}</div>
+                @endforeach
+            </div>
+        @endif
+    </div>
+
     <form method="GET" action="{{ route('admin.users.index') }}" style="margin-bottom:16px; display:flex; gap:8px">
         <input type="text" name="q" value="{{ $q ?? '' }}" placeholder="Buscar por nome ou e‑mail" style="flex:1; padding:10px; border-radius:8px; border:1px solid #3a4b77; background:#192341; color:var(--text)">
         <button class="btn" type="submit">Buscar</button>
