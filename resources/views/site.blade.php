@@ -59,6 +59,56 @@
     </div>
 </section>
 
+<!-- CARROSSEL -->
+<section class="py-5" style="background: radial-gradient(circle at center, #1a0030, #050016);">
+    <div class="container" data-aos="fade-up">
+        <h2 class="fw-bold text-center neon-glow mb-4">Galeria de Equipamentos</h2>
+
+        <div id="carouselConduzo" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3500">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselConduzo" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselConduzo" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselConduzo" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+
+            <div class="carousel-inner rounded-4 overflow-hidden">
+                <div class="carousel-item active">
+                    <img src="https://picsum.photos/1200/500?random=11" class="d-block w-100" alt="Encoder">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5 class="neon-glow">Encoders Profissionais</h5>
+                        <p>Alta performance em transmissão.</p>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <img src="https://picsum.photos/1200/500?random=12" class="d-block w-100" alt="Multiplexadores">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5 class="neon-glow">Multiplexadores</h5>
+                        <p>Integração de sinais.</p>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <img src="https://picsum.photos/1200/500?random=13" class="d-block w-100" alt="Antenas">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5 class="neon-glow">Antenas & BUC</h5>
+                        <p>Estabilidade máxima.</p>
+                    </div>
+                </div>
+            </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselConduzo" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Anterior</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselConduzo" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Próximo</span>
+            </button>
+        </div>
+    </div>
+</section>
+
 <section id="produtos" class="py-5">
     <div class="container">
         <h2 class="fw-bold text-center neon-glow mb-4" data-aos="fade-up">Produtos & Serviços</h2>
